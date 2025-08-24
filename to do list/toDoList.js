@@ -41,6 +41,7 @@ form.addEventListener('submit', (e) => {
             completed: false // Initialize with completed status
         });
         renderTaskList();
+        renderCompletedTasks();
         saveData();
         form.reset(); // Clear the form inputs
     }
@@ -86,6 +87,7 @@ function renderTaskList() {
                 // Save changes immediately
                 saveData();
                 renderTaskList();
+                renderCompletedTasks();
             });
             
             div.appendChild(checkBox);
@@ -121,5 +123,24 @@ function removeCompletedTask(completedTasks) {
         })
     }
     saveData();
+}
+
+function renderCompletedTasks() {
+    const completedTaskList = document.getElementById('completed-task-list');
+    completedTaskList.innerHTML = '';
+    completedTasks.forEach((task) => {
+        const div = document.createElement('div');
+        div.classList.add('task-list-items');
+        div.innerHTML = `
+            <h3 class="task-name"><strong>task:</strong> ${task.task}</h3>
+            <p class="task-description-data"><strong>description:</strong> ${task.description}</p>
+        `;
+        completedTaskList.appendChild(div);
+    });
+}
+function clearCompleted() {
+    completedTasks.length = 0;
+    saveData();
+    renderCompletedTasks();
 }
 

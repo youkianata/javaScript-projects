@@ -88,8 +88,27 @@ main .field button {
     border-radius: 10px;
     width: 100%;
 }
+main h2 {
+    text-decoration: underline;
+    margin-bottom: 1rem;
+    font-family: Arial, sans-serif;
+    color:rgb(246, 84, 56);
+}
 /* render task list responsively: single-column on small screens, multi-column on larger */
 #task-list {
+    /* span all columns of the parent `main` grid so it uses full content width */
+    grid-column: 1 / -1;
+    width: 100%;
+    margin: 0; /* main has padding */
+    display: grid;
+    grid-template-columns: 1fr; /* default: stack as rows */
+    gap: var(--grid-gap-row) var(--grid-gap-col);
+    align-items: stretch; /* ensure grid items stretch to row height */
+    /* make implicit rows distribute evenly per-row height so cards in the same row align
+       and setting card height:100% will fill the cell */
+    grid-auto-rows: 1fr;
+}
+#completed-task-list {
     /* span all columns of the parent `main` grid so it uses full content width */
     grid-column: 1 / -1;
     width: 100%;
@@ -111,6 +130,12 @@ main .field button {
     /* slightly larger column gap on wide screens */
     gap: calc(var(--grid-gap-row) * 1.15) calc(var(--grid-gap-col) * 1.5);
     }
+    #completed-task-list {
+    /* use minmax(0, 1fr) so columns are equal and not widened by content */
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    /* slightly larger column gap on wide screens */
+    gap: calc(var(--grid-gap-row) * 1.15) calc(var(--grid-gap-col) * 1.5);
+    }
 }
 
 /* individual task container (match HTML .task-list-items) */
@@ -118,6 +143,7 @@ main .field button {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    text-align: left;
     gap: 0.5rem;
     padding: 1rem;
     border: 1px solid rgba(0,0,0,0.06);
@@ -162,4 +188,7 @@ main .field button {
     font-weight: 600;
     color: #e85438;
     margin-right: 0.25rem;
+}
+#task-list .task-list-items {
+     
 }
