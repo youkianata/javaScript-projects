@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="toDoList.css">
+    
+    <title>to do list</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="toDoList.html">Yk-to do list</a></li>
+            </ul>
+            <div>
+                    <button id="add-task-button">Add Task</button>
+                    <button onclick="clearCompleted()">Clear Completed</button>
+            </div>
+        </nav>
+        
+    </header>
+            <h1>My To Do List</h1>
+    <main>
+
+        <div class="field" id="add-task-section">
+            <form id="add-task-form">
+                <p>add a new task</p>
+                <label for="task-input">New Task: </label>
+                <input type="text" id="task-input" name="task-input" placeholder="Add a new task">
+                <label for="task-description">Description: </label>
+                <textarea id="task-description" name="task-description" placeholder="Add a task description"></textarea>
+                <button type="submit">Add Task</button>
+            </form>
+        </div>
+            <div id="task-list">
+          
+            </div>
+        </div>
+    </main>
+    <script src="toDoList.js"></script>
+</body>
+</html>
