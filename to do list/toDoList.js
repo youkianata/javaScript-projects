@@ -26,10 +26,15 @@ addTaskButton.addEventListener('click', () => {
 });
 
 const savedTaskList = sessionStorage.getItem('taskListObject');
+const savedCompletedTasks = sessionStorage.getItem('completedTasks');
 
 if (savedTaskList) {
     taskListObject.push(...JSON.parse(savedTaskList));
     renderTaskList();
+}
+if (savedCompletedTasks) {
+    completedTasks.push(...JSON.parse(savedCompletedTasks));
+    renderCompletedTasks();
 }
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -98,7 +103,9 @@ function renderTaskList() {
         });
 }
 function saveData() {
+    // Save both taskListObject and completedTasks to sessionStorage
     sessionStorage.setItem('taskListObject', JSON.stringify(taskListObject));
+    sessionStorage.setItem('completedTasks', JSON.stringify(completedTasks));
 }
 // Initialize with any saved completed tasks from storage
 if (savedTaskList) {
