@@ -6,22 +6,25 @@ const form = document.getElementById('add-task-form');
 const taskListObject = [];
 const taskList = document.getElementById('task-list');
 const completedTasks = [];
+const main = document.querySelector('main');
 
 addTaskList.style.display = 'none';
-
 
 addTaskButton.addEventListener('click', () => {
     if (addTaskList.style.display === 'none') {
         setTimeout(() => {
             addTaskList.style.display = 'block';
+            main.classList.add('blur');
         }, 100);
     }
     else {
         setTimeout(() => {
             addTaskList.style.display = 'none';
+            main.classList.remove('blur');
         }, 100);
     }
 });
+
 const savedTaskList = sessionStorage.getItem('taskListObject');
 
 if (savedTaskList) {
@@ -144,3 +147,6 @@ function clearCompleted() {
     renderCompletedTasks();
 }
 
+function removeBlur() {
+    main.classList.remove('blur');
+}

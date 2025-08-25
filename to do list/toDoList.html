@@ -20,19 +20,8 @@
         </nav>
         
     </header>
-            <h1>My To Do List</h1>
     <main>
-
-        <div class="field" id="add-task-section">
-            <form id="add-task-form">
-                <p>add a new task</p>
-                <label for="task-input">New Task: </label>
-                <input type="text" id="task-input" name="task-input" placeholder="Add a new task">
-                <label for="task-description">Description: </label>
-                <textarea id="task-description" name="task-description" placeholder="Add a task description"></textarea>
-                <button type="submit">Add Task</button>
-            </form>
-        </div>
+            <h1>My To Do List</h1>
             <div id="task-list">
           
             </div>
@@ -43,6 +32,16 @@
             </div>
         </div>
     </main>
+      <div class="field" id="add-task-section">
+            <form id="add-task-form">
+                <p>add a new task</p>
+                <label for="task-input">New Task: </label>
+                <input type="text" id="task-input" name="task-input" placeholder="Add a new task">
+                <label for="task-description">Description: </label>
+                <textarea id="task-description" name="task-description" placeholder="Add a task description"></textarea>
+                <button type="submit" onclick="removeBlur()">Add Task</button>
+            </form>
+        </div>
     <script src="toDoList.js"></script>
 </body>
 </html>
