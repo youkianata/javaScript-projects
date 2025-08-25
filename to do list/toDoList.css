@@ -271,25 +271,7 @@ main h2 {
 }
 
 /* individual task container (match HTML .task-list-items) */
-.task-list-items {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: left;
-    gap: 0.3rem;
-    padding: 0.9rem 1rem;
-    border: 1px solid rgba(0,0,0,0.08);
-    border-radius: 8px;
-    background: linear-gradient(145deg, #fff5f5, #f8e0e0);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-    transition: all 0.25s ease;
-    position: relative;
-    /* allow the item to shrink inside grid cells (prevents content expanding column) */
-    min-width: 0;
-    /* ensure the card fills the grid cell and all cards in a row share the same height */
-    height: 100%;
-    min-height: var(--card-min-height);
-}
+
 .task-list-items-high {
     display: flex;
     flex-direction: column;
@@ -339,7 +321,7 @@ main h2 {
     padding: 0.9rem 1rem;
     border: 1px solid rgba(255,149,0,0.2);
     border-radius: 8px;
-    background: linear-gradient(145deg, #fff8e5, #ffefc7);
+    background: linear-gradient(145deg, #fff8e5, #ffffc7);
     box-shadow: 0 4px 10px rgba(0,0,0,0.04);
     transition: all 0.25s ease;
     position: relative;
