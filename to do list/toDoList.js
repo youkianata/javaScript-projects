@@ -7,7 +7,6 @@ const taskListObject = [];
 const taskList = document.getElementById('task-list');
 const completedTasks = [];
 const main = document.querySelector('main');
-const priority = document.getElementById('task-priority');
 
 addTaskList.style.display = 'none';
 
@@ -44,11 +43,19 @@ form.addEventListener('submit', (e) => {
     const taskInput = formData.get("task-input");
     const taskDescription = formData.get("task-description");
     const taskPriority = formData.get("task-priority");
-    if (taskInput && taskDescription && taskPriority) {
+    const taskStartDate = formData.get("task-start-date");
+    const taskEndDate = formData.get("task-end-date");
+    if (taskInput && taskDescription && taskPriority && taskStartDate && taskEndDate) {
+        if (new Date(taskStartDate) > new Date(taskEndDate)) {
+            alert("End date must be after start date.");
+            return;
+        }
         taskListObject.push({
             task: taskInput,
             description: taskDescription,
             priority: taskPriority,
+            startDate: taskStartDate,
+            endDate: taskEndDate,
             completed: false // Initialize with completed status
         });
         renderTaskList();
@@ -59,7 +66,9 @@ form.addEventListener('submit', (e) => {
         console.log({
             task: taskInput,
             description: taskDescription,
-            priority: taskPriority
+            priority: taskPriority,
+            startDate: taskStartDate,
+            endDate: taskEndDate
         });
     }
     else {
@@ -89,10 +98,14 @@ function renderTaskList() {
             if (task.priority === "low") {
                 div.classList.add("task-list-items-low");
             }
+            const startFormatted = dateConvert(task.startDate);
+            const endFormatted = dateConvert(task.endDate);
             div.innerHTML = `
                 <h3 class="task-name"><strong>task:</strong> ${task.task}</h3>
                 <p class="task-description-data"><strong>description:</strong> ${task.description}</p>
                 <p class="task-priority-data"><strong>priority:</strong> ${task.priority}</p>
+                <p class="task-start-date-data"><strong>start date:</strong> ${startFormatted}</p>
+                <p class="task-end-date-data"><strong>end date:</strong> ${endFormatted}</p>
 
             `;
             // Use stable index from forEach instead of indexOf which is unstable
@@ -137,12 +150,6 @@ if (savedTaskList) {
             completedTasks.push(task);
         }
     });
-    
-    // Log initial completed tasks if any
-    if (completedTasks.length > 0) {
-        console.log('Restored completed tasks:');
-        console.log(completedTasks);
-    }
 }
 
 function removeCompletedTask(completedTasks) {
@@ -170,10 +177,15 @@ function renderCompletedTasks() {
         if (task.priority === "low") {
             div.classList.add("task-list-items-low");
         }
+        const startFormatted = dateConvert(task.startDate);
+        const endFormatted = dateConvert(task.endDate);
         div.innerHTML = `
             <h3 class="task-name"><strong>task:</strong> ${task.task}</h3>
             <p class="task-description-data"><strong>description:</strong> ${task.description}</p>
             <p class="task-priority-data"><strong>priority:</strong> ${task.priority}</p>
+            <p class="task-start-date-data"><strong>start date:</strong> ${startFormatted}</p>
+            <p class="task-end-date-data"><strong>end date:</strong> ${endFormatted}</p>
+
         `;
         completedTaskList.appendChild(div);
     });
@@ -186,4 +198,10 @@ function clearCompleted() {
 
 function removeBlur() {
     main.classList.remove('blur');
+}
+
+function dateConvert(datestr1) {
+    const dateConverted = new Date(datestr1 + "T00:00:00");
+    const dateConvertedFormat = dateConverted.toLocaleDateString("en-GB");
+    return dateConvertedFormat;
 }
