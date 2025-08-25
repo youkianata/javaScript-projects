@@ -7,6 +7,7 @@ const taskListObject = [];
 const taskList = document.getElementById('task-list');
 const completedTasks = [];
 const main = document.querySelector('main');
+const priority = document.getElementById('task-priority');
 
 addTaskList.style.display = 'none';
 
@@ -42,16 +43,27 @@ form.addEventListener('submit', (e) => {
     const formData = new FormData(form);
     const taskInput = formData.get("task-input");
     const taskDescription = formData.get("task-description");
-    if (taskInput && taskDescription) {
+    const taskPriority = formData.get("task-priority");
+    if (taskInput && taskDescription && taskPriority) {
         taskListObject.push({
             task: taskInput,
             description: taskDescription,
+            priority: taskPriority,
             completed: false // Initialize with completed status
         });
         renderTaskList();
         renderCompletedTasks();
         saveData();
         form.reset(); // Clear the form inputs
+        console.log("New task added:");
+        console.log({
+            task: taskInput,
+            description: taskDescription,
+            priority: taskPriority
+        });
+    }
+    else {
+        alert("Please fill in all fields.");
     }
 
     setTimeout(() => {
@@ -60,18 +72,29 @@ form.addEventListener('submit', (e) => {
 
     // taskListObject.length = 0;
  });
+
+
 function renderTaskList() {
         taskList.innerHTML = '';
         taskListObject.forEach((task, index) => {
             const div = document.createElement('div');
             const checkBox = document.createElement('input');
             checkBox.type = 'checkbox';
-            div.classList.add('task-list-items');
+            if (task.priority === "high") {
+                div.classList.add("task-list-items-high");
+            }
+            if (task.priority === "medium") {
+                div.classList.add("task-list-items-medium");
+            }
+            if (task.priority === "low") {
+                div.classList.add("task-list-items-low");
+            }
             div.innerHTML = `
                 <h3 class="task-name"><strong>task:</strong> ${task.task}</h3>
                 <p class="task-description-data"><strong>description:</strong> ${task.description}</p>
+                <p class="task-priority-data"><strong>priority:</strong> ${task.priority}</p>
 
-       `;
+            `;
             // Use stable index from forEach instead of indexOf which is unstable
             checkBox.name = `task-${index}`;
             checkBox.id = `task-${index}`;
@@ -87,8 +110,6 @@ function renderTaskList() {
                     // Only push to completedTasks if not already there
                     if (!completedTasks.includes(task)) {
                         completedTasks.push(task);
-                        console.log('Task completed:');
-                        console.log(task);
                     }
                     removeCompletedTask(completedTasks);
                 }
@@ -140,10 +161,19 @@ function renderCompletedTasks() {
     completedTaskList.innerHTML = '';
     completedTasks.forEach((task) => {
         const div = document.createElement('div');
-        div.classList.add('task-list-items');
+        if (task.priority === "high") {
+            div.classList.add("task-list-items-high");
+        }
+        if (task.priority === "medium") {
+            div.classList.add("task-list-items-medium");
+        }
+        if (task.priority === "low") {
+            div.classList.add("task-list-items-low");
+        }
         div.innerHTML = `
             <h3 class="task-name"><strong>task:</strong> ${task.task}</h3>
             <p class="task-description-data"><strong>description:</strong> ${task.description}</p>
+            <p class="task-priority-data"><strong>priority:</strong> ${task.priority}</p>
         `;
         completedTaskList.appendChild(div);
     });

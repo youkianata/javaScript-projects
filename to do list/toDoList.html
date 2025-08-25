@@ -39,6 +39,16 @@
                 <input type="text" id="task-input" name="task-input" placeholder="Add a new task">
                 <label for="task-description">Description: </label>
                 <textarea id="task-description" name="task-description" placeholder="Add a task description"></textarea>
+                <label for="task-priority">Priority: </label>
+                <select id="task-priority" name="task-priority">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+                <!-- <label for="task-start-date">Start Date: </label>
+                <input type="date" id="task-start-date" name="task-start-date">
+                <label for="task-end-date">End Date: </label>
+                <input type="date" id="task-end-date" name="task-end-date"> -->
                 <button type="submit" onclick="removeBlur()">Add Task</button>
             </form>
         </div>
