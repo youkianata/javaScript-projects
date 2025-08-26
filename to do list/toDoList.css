@@ -332,6 +332,49 @@ main h2 {
     min-height: var(--card-min-height);
     border-left: 3px solid #ff9500;
 }
+.uncompleted-task-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--grid-gap-row) var(--grid-gap-col);
+    grid-auto-rows: 1fr;
+}
+
+.completed-task-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--grid-gap-row) var(--grid-gap-col);
+    align-items: stretch;
+    grid-auto-rows: 1fr;
+    opacity: 0.85;
+}
+
+.task-list-info {
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #ef3f3f8b;
+    width: 400px;
+}
+
+/* Responsive adjustments for task list containers */
+@media (min-width: 600px) {
+    .uncompleted-task-list,
+    .completed-task-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 900px) {
+    .uncompleted-task-list,
+    .completed-task-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .uncompleted-task-list,
+    .completed-task-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
 .task-list-items:hover,
 .task-list-items-high:hover,
 .task-list-items-medium:hover,

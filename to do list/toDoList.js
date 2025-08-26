@@ -62,14 +62,6 @@ form.addEventListener('submit', (e) => {
         renderCompletedTasks();
         saveData();
         form.reset(); // Clear the form inputs
-        console.log("New task added:");
-        console.log({
-            task: taskInput,
-            description: taskDescription,
-            priority: taskPriority,
-            startDate: taskStartDate,
-            endDate: taskEndDate
-        });
     }
     else {
         alert("Please fill in all fields.");
@@ -84,7 +76,21 @@ form.addEventListener('submit', (e) => {
 
 
 function renderTaskList() {
+    if (taskListObject.length === 0) {
         taskList.innerHTML = '';
+        const mainDiv = document.createElement('div');
+        mainDiv.classList.add('uncompleted-task-list');
+        const div1 = document.createElement('div');
+        div1.classList.add('task-list-info');
+        div1.innerHTML = `
+                        <h3>tasks: </h3>
+                        <p>you have <span id="task-count">0</span> tasks </p>
+                        <p>click on the add task button to add a new task</p>
+                    `;
+        mainDiv.appendChild(div1);
+        taskList.appendChild(mainDiv);
+    } else {
+         taskList.innerHTML = '';
         taskListObject.forEach((task, index) => {
             const div = document.createElement('div');
             const checkBox = document.createElement('input');
@@ -98,6 +104,7 @@ function renderTaskList() {
             if (task.priority === "low") {
                 div.classList.add("task-list-items-low");
             }
+        
             const startFormatted = dateConvert(task.startDate);
             const endFormatted = dateConvert(task.endDate);
             div.innerHTML = `
@@ -135,6 +142,7 @@ function renderTaskList() {
             div.appendChild(checkBox);
             taskList.appendChild(div);
         });
+    }
 }
 function saveData() {
     // Save both taskListObject and completedTasks to sessionStorage
@@ -165,8 +173,22 @@ function removeCompletedTask(completedTasks) {
 
 function renderCompletedTasks() {
     const completedTaskList = document.getElementById('completed-task-list');
-    completedTaskList.innerHTML = '';
-    completedTasks.forEach((task) => {
+    if (completedTasks.length === 0) {
+        completedTaskList.innerHTML = '';
+        const mainDiv = document.createElement('div');
+        mainDiv.classList.add('completed-task-list');
+        const div1 = document.createElement('div');
+        div1.classList.add('task-list-info');
+        div1.innerHTML = `
+                        <h3>tasks: </h3>
+                        <p>you have <span id="task-count">0</span> tasks </p>
+                        <p>click on the add task button to add a new task</p>
+                    `;
+        mainDiv.appendChild(div1);
+        completedTaskList.appendChild(mainDiv);
+    }else {
+        completedTaskList.innerHTML = '';
+        completedTasks.forEach((task) => {
         const div = document.createElement('div');
         if (task.priority === "high") {
             div.classList.add("task-list-items-high");
@@ -188,7 +210,10 @@ function renderCompletedTasks() {
 
         `;
         completedTaskList.appendChild(div);
+
     });
+    }
+    
 }
 function clearCompleted() {
     completedTasks.length = 0;
@@ -205,3 +230,5 @@ function dateConvert(datestr1) {
     const dateConvertedFormat = dateConverted.toLocaleDateString("en-GB");
     return dateConvertedFormat;
 }
+renderTaskList();
+renderCompletedTasks();
