@@ -10,7 +10,11 @@ const main = document.querySelector('main');
 
 addTaskList.style.display = 'none';
 
-addTaskButton.addEventListener('click', () => {
+
+addTaskButton.addEventListener('click', (e) => {
+    // if (!addTaskList.contains(e.target)) {
+    //     addTaskList.style.display = 'none';
+    // }
     if (addTaskList.style.display === 'none') {
         setTimeout(() => {
             addTaskList.style.display = 'block';
@@ -181,7 +185,7 @@ function renderCompletedTasks() {
         div1.classList.add('task-list-info');
         div1.innerHTML = `
                         <h3>tasks: </h3>
-                        <p>you have <span id="task-count">0</span> tasks </p>
+                        <p>you have <span id="task-count">0</span> completed tasks </p>
                         <p>click on the add task button to add a new task</p>
                     `;
         mainDiv.appendChild(div1);
